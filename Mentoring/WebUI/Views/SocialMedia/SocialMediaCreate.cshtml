@@ -1,0 +1,65 @@
+@model SocialMediaCreateModel
+@{
+    ViewData["Title"] = "SocialMediaCreate";
+    Layout = "_LayoutMentor";
+}
+
+<div class="form-w3layouts">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel">
+
+                <div class="panel-heading">
+                    Sosyal Medya Ekle
+                    <span class="tools pull-right">
+                        <a class="fa fa-chevron-down" href="javascript:;"></a>
+                        <a class="fa fa-times" href="javascript:;"></a>
+                    </span>
+                </div>
+
+                <div class="panel-body">
+                    <div class="form">
+                        <form class="cmxform form-horizontal" method="post" asp-controller="SocialMedia" asp-action="SocialMediaCreate">
+                            <div class="form-group ">
+                                <label for="SocialMediaRowNumber" class="control-label col-lg-3">Sıra Numarası</label>
+                                <div class="col-lg-6">
+                                    <span class="validation" asp-validation-for="SocialMediaRowNumber"></span>
+                                    <input asp-for="SocialMediaRowNumber" class="form-control" type="text">
+                                </div>
+                            </div>
+                            <div class="form-group ">
+                                <label for="SocialMediaTitle" class="control-label col-lg-3">Başlık</label>
+                                <div class="col-lg-6">
+                                    <span class="validation" asp-validation-for="SocialMediaTitle"></span>
+                                    <input asp-for="SocialMediaTitle" class="form-control" type="text">
+                                </div>
+                            </div>
+                            <div class="form-group ">
+                                <label for="SocialMediaIcon" class="control-label col-lg-3">İkon</label>
+                                <div class="col-lg-6">
+                                    <span class="validation" asp-validation-for="SocialMediaIcon"></span>
+                                    <input asp-for="SocialMediaIcon" class="form-control" type="text">
+                                </div>
+                            </div>
+                            <div class="form-group ">
+                                <label for="SocialMediaLink" class="control-label col-lg-3">Link</label>
+                                <div class="col-lg-6">
+                                    <span class="validation" asp-validation-for="SocialMediaLink"></span>
+                                    <input asp-for="SocialMediaLink" class="form-control" type="text">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-lg-offset-3 col-lg-6">
+                                    <button class="btn btn-primary" type="submit">Ekle</button>
+                                    <a asp-controller="SocialMedia" asp-action="SocialMediaList" class="btn btn-default">Geri</a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

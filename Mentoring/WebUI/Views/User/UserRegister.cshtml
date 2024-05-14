@@ -1,0 +1,44 @@
+@model UserRegisterModel
+@{
+    ViewData["Title"] = "Kayıt Ol";
+    Layout = "_LayoutUser";
+}
+
+<img class="mentoring-img" src="/img/mentoring.png" alt="" style="left: 3%;">
+<div class="reg-w3">
+    <div class="w3layouts-main">
+        <div class="user-logo-box">
+            <img class="user-logo" src="/img/deu-logo-mavi.png" alt="/img/deu-logo-mavi.png">
+            <img class="user-logo" src="/img/izmir-meslek-yuksekokulu.png" alt="/img/izmir-meslek-yuksekokulu.png">
+        </div>
+        <h2>KAYIT OL</h2>
+        <form asp-controller="User" asp-action="UserRegister" method="post">
+
+            <span class="validation" asp-validation-for="Name"></span>
+            <input type="text" class="ggg" name="Name" placeholder="AD" required="">
+
+            <span class="validation" asp-validation-for="Surname"></span>
+            <input type="text" class="ggg" name="Surname" placeholder="SOYAD" required="">
+
+            <span class="validation" asp-validation-for="Email"></span>
+            <input type="email" class="ggg" name="Email" placeholder="E-MAİL" required="">
+
+            <span class="validation" asp-validation-for="Password"></span>
+            <input type="password" class="ggg" name="Password" placeholder="ŞİFRE" required="">
+            <span class="validation" asp-validation-for="RePassword"></span>
+            <input type="password" class="ggg" name="RePassword" placeholder="ŞİFRE TEKRAR" required="">
+
+            <span class="validation" asp-validation-for="RoleName"></span>
+            <select name="RoleName" class="ggg">
+                <option style="color: #000;" selected disabled>Rol Seçiniz</option>
+                <option style="color: #000;" value="Student">Öğrenci</option>
+                <option style="color: #000;" value="Mentor">Mentor</option>
+            </select>
+
+            <div style="display: flex;">
+                <a class="submit-login text-center" style="width: 100%;" asp-controller="User" asp-action="UserLogin">GİRİŞ</a>
+                <button type="submit" class="submit-login text-center" style="width: 100%;">KAYIT OL</button>
+            </div>
+        </form>
+    </div>
+</div>

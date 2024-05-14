@@ -1,0 +1,47 @@
+@model Mentor
+@{
+    ViewData["Title"] = "SocialMediaList";
+    Layout = "_LayoutMentor";
+}
+
+<div class="table-agile-info">
+    <div class="panel panel-default">
+        <div class="panel-heading">Sosyal Medya Listesi</div>
+
+        <a asp-controller="SocialMedia" asp-action="SocialMediaCreate" class="btn btn-success" style="margin: 15px;">Sosyal Medya Ekle</a>
+        <a asp-controller="Mentor" asp-action="Index" class="btn btn-default" style="margin: 15px;">Geri</a>
+
+        @if (Model.SocialMedias.Count() > 0)
+        {
+            <div class="table-responsive">
+                <table class="table table-striped b-t b-light">
+                    <thead>
+                        <tr>
+                            <th>Sıra No</th>
+                            <th>Başlık</th>
+                            <th colspan="2"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @foreach (var item in Model.SocialMedias)
+                        {
+                            <tr data-expanded="true">
+                                <td>@item.SocialMediaRowNumber</td>
+                                <td>@item.SocialMediaTitle</td>
+                                <td><a asp-controller="SocialMedia" asp-action="SocialMediaEdit" asp-route-id="@item.SocialMediaId" class="btn btn-warning">Düzenle</a></td>
+                                <td><a asp-controller="SocialMedia" asp-action="SocialMediaDelete" asp-route-id="@item.SocialMediaId" class="btn btn-danger" onclick="return silOnayla();">Sil</a></td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        } else
+        {
+            <div class="alert alert-warning text-center" role="alert">
+                Eklenmiş öge bulunmuyor
+            </div>
+        }
+
+    </div>
+</div>

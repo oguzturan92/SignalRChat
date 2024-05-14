@@ -1,0 +1,59 @@
+@model StudentIndexModel
+@{
+    ViewData["Title"] = "Index";
+    Layout = "_LayoutStudent";
+}
+
+<link rel="stylesheet" href="/css/student-index.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+
+
+<nav class="navbar navbar-light bg-light">
+    <form class="form-inline" asp-controller="Student" asp-action="Index">
+        <select name="department" class="form-control mr-2">
+            <option selected disabled>Arama yapmak istediğiniz departman seçimi yapınız</option>
+            @foreach (var item in Model.Departments)
+            {
+                <option value="@item.DepartmentName">@item.DepartmentName</option>
+            }
+        </select>
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Ara</button>
+    </form>
+</nav>
+
+<div class="container">
+    <div class="row text-center">
+
+        @foreach (var item in Model.Mentors)
+        {
+            <div class="col-xl-3 col-sm-6 mb-5">
+                <div class="bg-white rounded shadow-sm py-5 px-4" style="height: 100%;">
+                    <a asp-controller="Student" asp-action="MentorDetail" asp-route-userId="@item.ProjeUser.Id" style="position: relative;">
+                        <img src="/img/@item.Image" alt="@item.Image" width="100" class="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm">
+                        <i class="fa-solid fa-circle @(item.IsOnline ? "online":"offline")"></i>
+                    </a>
+                    <div style="margin-top: 0px;">
+                        <i class="fa-solid fa-star" style="color: @(item.Points.Average(i => i.PointNo)>0 ? "#ffe700":"#e7e7e7");"></i>
+                        <i class="fa-solid fa-star" style="color: @(item.Points.Average(i => i.PointNo)>=2 ? "#ffe700":"#e7e7e7");"></i>
+                        <i class="fa-solid fa-star" style="color: @(item.Points.Average(i => i.PointNo)>=3 ? "#ffe700":"#e7e7e7");"></i>
+                        <i class="fa-solid fa-star" style="color: @(item.Points.Average(i => i.PointNo)>=4 ? "#ffe700":"#e7e7e7");"></i>
+                        <i class="fa-solid fa-star" style="color: @(item.Points.Average(i => i.PointNo)==5 ? "#ffe700":"#e7e7e7");"></i>
+                        <span style="margin-left: 10px;">@item.Points.Average(i => i.PointNo)</span>
+                    </div>
+                    <h5 class="mb-0">@item.ProjeUser.Name @item.ProjeUser.Surname</h5>
+                    <span class="small text-uppercase text-muted">@item.Department</span>
+                    <ul class="social mb-0 list-inline mt-3">
+                        @foreach (var item2 in item.SocialMedias)
+                        {
+                            <li class="list-inline-item">
+                                <a href="@item2.SocialMediaLink" class="social-link">
+                                    <i class="@item2.SocialMediaIcon"></i>
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        }
+    </div>
+</div>

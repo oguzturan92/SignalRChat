@@ -1,0 +1,47 @@
+@model Mentor
+@{
+    ViewData["Title"] = "StajList";
+    Layout = "_LayoutMentor";
+}
+
+<div class="table-agile-info">
+    <div class="panel panel-default">
+        <div class="panel-heading">Staj Listesi</div>
+
+        <a asp-controller="Staj" asp-action="StajCreate" class="btn btn-success" style="margin: 15px;">Staj Ekle</a>
+        <a asp-controller="Mentor" asp-action="Index" class="btn btn-default" style="margin: 15px;">Geri</a>
+
+        @if (Model.Stajs.Count() > 0)
+        {
+            <div class="table-responsive">
+                <table class="table table-striped b-t b-light">
+                    <thead>
+                        <tr>
+                            <th>Sıra No</th>
+                            <th>Başlık</th>
+                            <th colspan="2"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @foreach (var item in Model.Stajs)
+                        {
+                            <tr data-expanded="true">
+                                <td>@item.StajRowNumber</td>
+                                <td>@item.StajTitle</td>
+                                <td><a asp-controller="Staj" asp-action="StajEdit" asp-route-id="@item.StajId" class="btn btn-warning">Düzenle</a></td>
+                                <td><a asp-controller="Staj" asp-action="StajDelete" asp-route-id="@item.StajId" class="btn btn-danger" onclick="return silOnayla();">Sil</a></td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        } else
+        {
+            <div class="alert alert-warning text-center" role="alert">
+                Eklenmiş öge bulunmuyor
+            </div>
+        }
+
+    </div>
+</div>

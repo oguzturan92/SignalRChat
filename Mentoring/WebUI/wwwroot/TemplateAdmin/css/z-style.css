@@ -1,0 +1,40 @@
+
+.z-editImg {
+    width: 60px;
+    height: 60px;
+    margin-bottom: 10px;
+    object-fit: cover;
+}
+
+.z-listImg {
+    max-width: 40px;
+    height: 25px;
+    object-fit: cover;
+}
+
+.validation {
+    color: black;
+}
+
+.admin-not-span {
+    font-size: 12px;
+}
+
+.user-logo-box {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 10px;
+}
+.user-logo {
+    background-color: #fff;
+    margin-bottom: 20px;
+}
+
+.mentoring-img {
+    position: absolute;
+    top: 50%;
+    right: 3%;
+    z-index: 0;
+    transform: translate(0%, -50%);
+}

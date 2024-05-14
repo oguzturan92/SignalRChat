@@ -1,0 +1,29 @@
+@model UserLoginModel
+@{
+    ViewData["Title"] = "UserLogin";
+    Layout = "_LayoutUser";
+}
+
+<img class="mentoring-img" src="/img/mentoring.png" alt="">
+<div class="reg-w3" style="z-index: 1; position: relative;">
+    <div class="w3layouts-main">
+        <div class="user-logo-box">
+            <img class="user-logo" src="/img/deu-logo-mavi.png" alt="/img/deu-logo-mavi.png">
+            <img class="user-logo" src="/img/izmir-meslek-yuksekokulu.png" alt="/img/izmir-meslek-yuksekokulu.png">
+        </div>
+        <h2>GİRİŞ YAP</h2>
+        <form asp-controller="User" asp-action="UserLogin" method="post">
+
+            <span class="validation" asp-validation-for="Email"></span>
+            <input type="email" class="ggg" name="Email" placeholder="E-MAİL" required="">
+
+            <span class="validation" asp-validation-for="Password"></span>
+            <input type="password" class="ggg" name="Password" placeholder="ŞİFRE" required="">
+            
+            <div style="display: flex;">
+                <a class="submit-login text-center" style="width: 100%;" asp-controller="User" asp-action="UserRegister">KAYIT OL</a>
+                <button type="submit" class="submit-login text-center" style="width: 100%;">GİRİŞ</button>
+            </div>
+        </form>
+    </div>
+</div>

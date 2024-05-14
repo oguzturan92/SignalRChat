@@ -1,0 +1,60 @@
+@model StajEditModel
+@{
+    ViewData["Title"] = "StajEdit";
+    Layout = "_LayoutMentor";
+}
+
+<div class="form-w3layouts">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel">
+
+                <div class="panel-heading">
+                    Staj Düzenle
+                    <span class="tools pull-right">
+                        <a class="fa fa-chevron-down" href="javascript:;"></a>
+                        <a class="fa fa-times" href="javascript:;"></a>
+                    </span>
+                </div>
+
+                <div class="panel-body">
+                    <div class="form">
+                        <form class="cmxform form-horizontal" method="post" asp-controller="Staj" asp-action="StajEdit">
+                            <input type="hidden" asp-for="StajId">
+                            <input type="hidden" asp-for="MentorId">
+                            <div class="form-group ">
+                                <label for="StajRowNumber" class="control-label col-lg-3">Sıra Numarası</label>
+                                <div class="col-lg-6">
+                                    <span class="validation" asp-validation-for="StajRowNumber"></span>
+                                    <input asp-for="StajRowNumber" class="form-control" type="text">
+                                </div>
+                            </div>
+                            <div class="form-group ">
+                                <label for="StajTitle" class="control-label col-lg-3">Başlık</label>
+                                <div class="col-lg-6">
+                                    <span class="validation" asp-validation-for="StajTitle"></span>
+                                    <input asp-for="StajTitle" class="form-control" type="text">
+                                </div>
+                            </div>
+                            <div class="form-group ">
+                                <label for="StajSubTitle" class="control-label col-lg-3">Alt Başlık</label>
+                                <div class="col-lg-6">
+                                    <span class="validation" asp-validation-for="StajSubTitle"></span>
+                                    <input asp-for="StajSubTitle" class="form-control" type="text">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-lg-offset-3 col-lg-6">
+                                    <button class="btn btn-primary" type="submit">Kaydet</button>
+                                    <a asp-controller="Staj" asp-action="StajList" class="btn btn-default">Geri</a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

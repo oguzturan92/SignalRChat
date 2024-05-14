@@ -1,0 +1,119 @@
+@model MentorEditModel
+@{
+    ViewData["Title"] = "MentorEdit";
+    Layout = "_LayoutMentor";
+}
+
+<div class="form-w3layouts">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel">
+
+                <div class="panel-heading">
+                    Hesap Düzenle
+                    <span class="tools pull-right">
+                        <a class="fa fa-chevron-down" href="javascript:;"></a>
+                        <a class="fa fa-times" href="javascript:;"></a>
+                    </span>
+                </div>
+
+                <div class="panel-body">
+                    <div class="form">
+                        <form class="cmxform form-horizontal" method="post" asp-controller="Mentor" asp-action="MentorEdit" enctype="multipart/form-data">
+                            <input type="hidden" asp-for="Id">
+                            <input type="hidden" asp-for="MentorId">
+                            <div class="form-group">
+                                <label for="Image" class="control-label col-lg-3">Resim</label>
+                                <div class="col-lg-6">
+                                    <input type="hidden" asp-for="Image">
+                                    <img src="~/img/@Model.Image" alt="" class="z-editImg">
+                                    <input name="file" type="file">
+                                    <span class="validation" asp-validation-for="Image"></span>
+                                </div>
+                            </div>
+                            <div class="form-group ">
+                                <label for="Name" class="control-label col-lg-3">Ad</label>
+                                <div class="col-lg-6">
+                                    <span class="validation" asp-validation-for="Name"></span>
+                                    <input asp-for="Name" class="form-control" type="text">
+                                </div>
+                            </div>
+                            <div class="form-group ">
+                                <label for="Surname" class="control-label col-lg-3">Soyad</label>
+                                <div class="col-lg-6">
+                                    <span class="validation" asp-validation-for="Surname"></span>
+                                    <input asp-for="Surname" class="form-control" type="text">
+                                </div>
+                            </div>
+                            <div class="form-group ">
+                                <label for="Gender" class="control-label col-lg-3">Cinsiyet</label>
+                                <div class="col-lg-6">
+                                    <span class="validation" asp-validation-for="Gender"></span>
+                                    <select asp-for="Gender" class="form-control">
+                                        <option value="True">Erkek</option>
+                                        <option value="False">Kadın</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group ">
+                                <label for="Department" class="control-label col-lg-3">Departman</label>
+                                <div class="col-lg-6">
+                                    <span class="validation" asp-validation-for="Department"></span>
+                                    <select asp-for="Department" class="form-control">
+                                        @foreach (var item in Model.Departments)
+                                        {
+                                            <option value="@item.DepartmentName">@item.DepartmentName</option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group ">
+                                <label for="Description" class="control-label col-lg-3">Açıklama</label>
+                                <div class="col-lg-6">
+                                    <span class="validation" asp-validation-for="Description"></span>
+                                    <input asp-for="Description" class="form-control" type="text">
+                                </div>
+                            </div>
+                            <div class="form-group ">
+                                <label for="Email" class="control-label col-lg-3">Email</label>
+                                <div class="col-lg-6">
+                                    <span class="validation" asp-validation-for="Email"></span>
+                                    <input asp-for="Email" class="form-control" type="text">
+                                </div>
+                            </div>
+                            <div class="form-group ">
+                                <label for="Phone" class="control-label col-lg-3">Telefon Numarası</label>
+                                <div class="col-lg-6">
+                                    <span class="validation" asp-validation-for="Phone"></span>
+                                    <input asp-for="Phone" class="form-control" type="text">
+                                </div>
+                            </div>
+                            <div class="form-group ">
+                                <label for="Address" class="control-label col-lg-3">Adres</label>
+                                <div class="col-lg-6">
+                                    <span class="validation" asp-validation-for="Address"></span>
+                                    <input asp-for="Address" class="form-control" type="text">
+                                </div>
+                            </div>
+                            <div class="form-group ">
+                                <label for="GraduationYear" class="control-label col-lg-3">Mezun Tarihi</label>
+                                <div class="col-lg-6">
+                                    <span class="validation" asp-validation-for="GraduationYear"></span>
+                                    <input asp-for="GraduationYear" class="form-control" type="date">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-lg-offset-3 col-lg-6">
+                                    <button class="btn btn-primary" type="submit">Kaydet</button>
+                                    <a asp-controller="Mentor" asp-action="Index" class="btn btn-default">Geri</a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,153 @@
+@model StudentChatIndexModel
+@{
+    ViewData["Title"] = "Index";
+    Layout = "_Layout"+ViewBag.roleName;
+}
+
+<link rel="stylesheet" href="/css/student-chat.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+
+<div class="container py-5 px-4">
+
+    <div class="row rounded-lg overflow-hidden shadow">
+
+        @* Users box *@
+        <div class="col-5 px-0">
+            <div class="bg-white">
+                <div class="bg-gray px-4 py-2 bg-light">
+                    @* <p class="h5 mb-0 py-1">Konuşmalarınız</p> *@
+                    <p class="h5 mb-0 py-1">@Model.UserFullname</p>
+                </div>
+
+                <div class="messages-box">
+                    <div class="list-group rounded-0" id="messageBoxContainer">
+                        
+                        @foreach (var item in Model.StudentChatList)
+                        {
+                            <div style="position:relative;">
+                                <a style=@(item.ChatRead==true?"background-color: #F3D5D2;":"") asp-controller="Chat" asp-action="Index" asp-route-id="@item.ChatId" class="list-group-item list-group-item-action @(Model.FocusChatId == item.ChatId ? "active text-white":"list-group-item-light") rounded-0 notification" value="@item.ChatId">
+                                    <div class="media"><img src="/img/@item.ChatImage" alt="@item.ChatImage" width="50" class="rounded-circle">
+                                        <div class="media-body ml-4">
+                                            <div class="d-flex align-items-center justify-content-between mb-1">
+                                                <h6 class="mb-0">@item.ChatFullname</h6>
+                                                <small class="small font-weight-bold">@item.ChatDate.ToShortDateString() @item.ChatDate.ToShortTimeString()</small>
+                                            </div>
+                                            <p class="font-italic mb-0 text-small">@(item.ChatLineLast.Count() > 30 ? item.ChatLineLast.Substring(0,30)+"...":item.ChatLineLast)</p>
+                                        </div>
+                                    </div>
+                                </a>
+                                @if (item.ChatRead)
+                                {
+                                    <i value="@item.ChatId" style="position: absolute; bottom: 10px; right: 50px; z-index: 10; color: #ff0000;" class="fa-solid fa-bell fa-beat"></i>
+                                }
+                                <form style="position: absolute; bottom: 10px; right: 15px; z-index: 10;" asp-controller="Chat" asp-action="ChatDelete" asp-route-chatId="@item.ChatId" method="post">
+                                    <button class="btn btn-light" style="padding: 2px 4px; font-size: 12px;" type="submit">
+                                        <i class="fa-solid fa-xmark"></i>
+                                    </button>
+                                </form>
+                            </div>
+                        }
+                    
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        @* Chat Box *@
+        <div class="col-7 px-0">
+        <div class="px-4 py-5 chat-box bg-white" id="messagesList">
+            @if (Model.ChatLines.Count() > 0)
+            {
+                @foreach (var item in Model.ChatLines)
+                {
+                    if (item.ChatLineSenderUserId == Model.BaseUserId)
+                    {
+                        <!-- Sender Message-->
+                        <div class="media w-50 ml-auto mb-3">
+                            <div class="media-body">
+                                
+                                <div class="bg-primary rounded py-2 px-3 mb-2">
+                                    <p class="text-small mb-0 text-white">@item.ChatLineMessage </p>
+                                    @if (item.Document)
+                                    {
+                                        <a href="/document/@item.ChatLineMessage" download><i class="fa-solid fa-download" style="color: #fff;"></i></a>
+                                    }
+                                </div>
+                                <p class="small text-muted">@item.ChatLineDate.ToShortTimeString() | @item.ChatLineDate.ToShortDateString()</p>
+                            </div>
+                        </div>
+                    } else
+                    {
+                        <!-- Reciever Message-->
+                        <div class="media w-50 mb-3">
+                            <div class="media-body ml-3">
+                                <div class="bg-light rounded py-2 px-3 mb-2">
+                                    <p class="text-small mb-0 text-muted">@item.ChatLineMessage</p>
+                                    @if (item.Document)
+                                    {
+                                        <a href="/document/@item.ChatLineMessage" download><i class="fa-solid fa-download" style="color: #fff;"></i></a>
+                                    }
+                                </div>
+                                <p class="small text-muted">@item.ChatLineDate.ToShortTimeString() | @item.ChatLineDate.ToShortDateString()</p>
+                            </div>
+                        </div>
+                    }
+                }
+            }
+
+        </div>
+
+        @* reply *@
+        @if (Model.NewMessageReceiverUserId == 0)
+        {
+            if (Model.FocusChatId == 0)
+            {
+                <form class="bg-light" style="height: 58px;">
+                    <div class="input-group" style="margin-bottom: 0px; height: 100%;">
+                        <input type="hidden" id="senderUserName" value="@(User.Identity.Name)">
+                    </div>
+                </form>
+            } else
+            {
+                <form class="bg-light" style="height: 58px;">
+                    <input type="hidden" id="focusChatId" value="@Model.FocusChatId">
+                    <input type="hidden" id="senderUserName" value="@(User.Identity.Name)">
+                    <input type="hidden" id="receiverUserId" value="@Model.ReceiverUserId">
+                    <div class="input-group" style="margin-bottom: 0px; height: 100%;">
+                        <input id="messageInput" type="text" placeholder="mesajınız..." aria-describedby="button-addon2" class="form-control rounded-0 border-0 py-4 bg-light btnOdaOlustur" style="height: 100%;">
+                        <div class="input-group-append">
+                            <button id="sendButton" type="button" class="btn btn-link">
+                                <i class="fa fa-paper-plane"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+                <form asp-controller="Chat" asp-action="Document" class="document-form" method="post"  enctype="multipart/form-data">
+                    <input name="file" type="file">
+                    <input type="hidden" name="chatIdDocument" value="@Model.FocusChatId">
+                    <button type="submit" class="btn btn-link">Dosyayı Gönder</button>
+                </form>
+            }
+        } else
+        {
+            <form asp-controller="Chat" asp-action="NewMessage" class="bg-light" style="height: 58px;">
+                <input type="hidden" name="receiverUserId" value="@Model.NewMessageReceiverUserId">
+                <div class="input-group" style="margin-bottom: 0px; height: 100%;">
+                    <input name="message" id="" type="text" placeholder="mesajınız..." aria-describedby="button-addon2" class="form-control rounded-0 border-0 py-4 bg-light" style="height: 100%;">
+                    <div class="input-group-append">
+                        <button id="" type="submit" class="btn btn-link">
+                            <i class="fa fa-paper-plane"></i>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        }
+
+
+        </div>
+
+    </div>
+</div>
+
+<script src="~/lib/signalr/signalr.min.js"></script>
+<script src="~/js/chat.js"></script>

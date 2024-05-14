@@ -1,0 +1,116 @@
+@model MentorDetailModel
+@{
+    ViewData["Title"] = "MentorDetail";
+    Layout = "_LayoutStudent";
+    int i = 0;
+}
+
+<link rel="stylesheet" href="/css/mentor-detail.css">
+
+<div class="row gutters-sm container" style="margin:auto;">
+    <div class="col-md-4 mb-3">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex flex-column align-items-center text-center">
+                    <img src="/img/@Model.Mentor.Image" alt="Admin" class="rounded-circle" style="border: 1px solid #e7e7e7; border-radius: 100px;" width="150">
+                    <div class="mt-3">
+                        <div style="margin-top: 20px;" class="point-box">
+                            <a asp-controller="Point" asp-action="Index" asp-route-point="1" asp-route-mentorId="@Model.Mentor.MentorId">
+                                <i class="fa-solid fa-star" id="point1" style="color: @(Model.Point>0 ? "#ffe700":"#e7e7e7");"></i>
+                            </a>
+                            <a asp-controller="Point" asp-action="Index" asp-route-point="2" asp-route-mentorId="@Model.Mentor.MentorId">
+                                <i class="fa-solid fa-star" id="point2" style="color: @(Model.Point>=2 ? "#ffe700":"#e7e7e7");"></i>
+                            </a>
+                            <a asp-controller="Point" asp-action="Index" asp-route-point="3" asp-route-mentorId="@Model.Mentor.MentorId">
+                                <i class="fa-solid fa-star" id="point3" style="color: @(Model.Point>=3 ? "#ffe700":"#e7e7e7");"></i>
+                            </a>
+                            <a asp-controller="Point" asp-action="Index" asp-route-point="4" asp-route-mentorId="@Model.Mentor.MentorId">
+                                <i class="fa-solid fa-star" id="point4" style="color: @(Model.Point>=4 ? "#ffe700":"#e7e7e7");"></i>
+                            </a>
+                            <a asp-controller="Point" asp-action="Index" asp-route-point="5" asp-route-mentorId="@Model.Mentor.MentorId">
+                                <i class="fa-solid fa-star" id="point5" style="color: @(Model.Point==5 ? "#ffe700":"#e7e7e7");"></i>
+                            </a>
+                            <span style="margin-left: 10px;">@Model.Point / Puan Ver</span>
+                        </div>
+                        <h4 style="margin-top: 20px;">@Model.User.Name @Model.User.Surname</h4>
+                        <p class="text-secondary mb-1" style="margin-top: 10px;">@Model.Mentor.Department</p>
+                        <p class="text-muted font-size-sm" style="margin-top: 10px;">@Model.Mentor.Description</p>
+                        <a asp-controller="Chat" asp-action="Index" asp-route-newMessageReceiverUserId="@Model.User.Id" class="btn btn-outline-primary" style="margin-top: 10px;">Mesaj</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card mt-3">
+            <ul class="list-group list-group-flush" style="margin-bottom: 0px;">
+                @foreach (var item in Model.Mentor.SocialMedias)
+                {
+                    <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                        <i class="@item.SocialMediaIcon"></i>
+                        <a href="@item.SocialMediaLink" target="_blank">@item.SocialMediaTitle</a>
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+    <div class="col-md-8">
+        <div class="card mb-3">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-sm-3">
+                        <h6 class="mb-0">Ad Soyad</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                        @Model.User.Name @Model.User.Surname
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <h6 class="mb-0">Email</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                        @Model.Mentor.Email
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <h6 class="mb-0">Telefon Numarası</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                        @Model.Mentor.Phone
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <h6 class="mb-0">Adres</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                        @Model.Mentor.Address
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel-group" id="accordion">
+            <div class="card" style="display:flex; flex-direction:row; align-items:center; justify-content:space-between; padding:10px;">
+                <h style="margin: 10px; text-align:center">Staj İlanları</h>
+            </div>
+            @foreach (var item in Model.Mentor.Stajs)
+            {
+                i++;
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title" style="line-height: inherit;">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse@(i)">
+                            @item.StajTitle</a>
+                        </h4>
+                    </div>
+                        <div id="collapse@(i)" class="panel-collapse collapse">
+                        <div class="panel-body">@item.StajSubTitle</div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
