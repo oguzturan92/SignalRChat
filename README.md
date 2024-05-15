@@ -14,6 +14,10 @@ https://github.com/oguzturan92/SignalRChat/assets/157590022/2fec1c40-2711-4714-9
 # HUB SINIFI VE METOTLARI
 ![Ekran görüntüsü 2024-05-15 000227](https://github.com/oguzturan92/SignalRChat/assets/157590022/cc74fe10-ec25-4ef1-9910-872a6a232126)
 
+# LINQ SORGUSU
+- Bu metotta, chat listesini, alıcıya ve göndericiye ait chat ögesini ve bağlı olduğu son gelen chatLine(son mesaj)ı aldık
+![Ekran görüntüsü 2024-05-15 000213](https://github.com/oguzturan92/SignalRChat/assets/157590022/d310c26c-a6cc-4ff0-bbec-a38c2a23bf48)
+
 # REPOSITORY PATTERN
 ![Ekran görüntüsü 2024-05-15 000318](https://github.com/oguzturan92/SignalRChat/assets/157590022/8cffd4ef-4e49-4d4a-acb9-17fc67855626)
 
