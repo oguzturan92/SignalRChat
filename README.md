@@ -24,5 +24,5 @@ https://github.com/oguzturan92/SignalRChat/assets/157590022/2fec1c40-2711-4714-9
 # DBCONTEXT
 ![Ekran görüntüsü 2024-05-15 000335](https://github.com/oguzturan92/SignalRChat/assets/157590022/3ffb9002-a8e8-488f-806d-f8fb18610466)
 
-# IDENTITIY
+# IDENTITY
 ![Ekran görüntüsü 2024-05-15 000358](https://github.com/oguzturan92/SignalRChat/assets/157590022/59bc4d57-fd2a-4131-b658-a57beabec5ed)
